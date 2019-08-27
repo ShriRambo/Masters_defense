@@ -1,0 +1,32 @@
+
+Experiment name:	linearBathymetry2
+Sub experiment:		B2/
+Description:
+Experiment with linear bathymetry
+______________________________________________________________
+Bathymetry details:
+	x in  [ 0,  2000 ],
+	y in  [ 0,  10 ],
+	Maximum depth: 120[m]
+	Bathymetry equation:  0.1 .+ D_max .* x ./ x_max 
+______________________________________________________________
+Boundary conditions:
+	H_sig: 5[m]
+	Spectrum: BIN
+	Directional spreading: 500[power]
+	Peak wave period: 10[sec]
+	Peak wave direction: 200[deg] (w.r.t +x-axis)
+______________________________________________________________
+Processes involved:
+	Shoaling,
+	Refraction,
+	Depth induced breaking
+______________________________________________________________
+Particle model settings:
+	Number of boundary sampes: 1
+	Time step: 0.01
+	RNG seed: 1234
+	---------------------------------------------
+	Computational grid:  nx:160 ny:1
+	Number of iterations: 11
+	--------------------------------------------

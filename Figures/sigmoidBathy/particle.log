@@ -1,0 +1,32 @@
+
+Experiment name:	sigmoidBathy
+Sub experiment:		
+Description:
+Experiment to check sigmoid bathymetry
+______________________________________________________________
+Bathymetry details:
+	x in  [ 0,  2000 ],
+	y in  [ 0,  1 ],
+	Maximum depth: 120[m]
+	Bathymetry equation:  0.1 .+ D_max .* (1 ./ (1 .+ exp.(((.-x .+ 0.3 .*x_max)./100))).- 0.6 .*exp.(  (.-((x .- 0.6*x_max)./x_max).^2) ./ (0.005)))  
+______________________________________________________________
+Boundary conditions:
+	H_sig: 5[m]
+	Spectrum: PM
+	Directional spreading: 2[power]
+	Peak wave period: 10[sec]
+	Peak wave direction: 200[deg] (w.r.t +x-axis)
+______________________________________________________________
+Processes involved:
+	Shoaling,
+	Refraction,
+	Depth induced breaking
+______________________________________________________________
+Particle model settings:
+	Number of boundary sampes: 1000
+	Time step: 1
+	RNG seed: 1234
+	---------------------------------------------
+	Computational grid:  nx:80 ny:1
+	Number of iterations: 41
+	--------------------------------------------

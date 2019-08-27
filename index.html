@@ -1,0 +1,1424 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!-- My custom stylesheet -->
+		<link rel="stylesheet" href="./myStyle.css">
+
+		<!-- Mathjax -->
+		<!-- <script type="text/javascript" async
+			src="C:/Users/ashirgad/OneDrive - Stichting Deltares/Documents/MathJax/MathJax-master/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+			 -->
+	</head>
+	<body>
+		<div class="reveal">
+				<div class="slides">
+
+					<!-- Slide Template -->
+					<!-- <section>
+					<h3 ></h3>
+					<br><br>
+				</section> -->
+
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- #########################           Cover       ###############################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+
+					<!--  Slide 1 -->
+					<section data-background-image="./Figures/beachDark.jpg" data-background-transition="slide">
+						<p style="text-shadow: 3px 4px 10px #000000; color: rgb(238, 238, 238);font-family: 'Roboto', sans-serif;">A
+							Particle-based Approach for <br> Stochastic Modelling of Waves <br> in the Near-shore Region</p>
+							<p class="myShadow" style="font-size: 22px">29th August, 2019</p>
+						<hr>
+						<p class='myShadow' style="color: white;"><small style="color: white;"> Shriram Ravindra Ashirgade </small></</p>
+
+						<div>
+								<img src="./Figures/TUD_white.png" alt="TUD" width="20%" style="background: #00000000; display:inline-block;vertical-align: bottom;padding-right: 5%" class="myShadow">
+							<div width="40%" style="display: inline-block;vertical-align: top" align="left">
+								<small class="myShadow">Thesis Committee:</small>
+							</div>
+							<div width="40%" align="left" style="display: inline-block;vertical-align: top" class="myShadow">
+									<small>Martin Verlaan <br> Ad Reniers <br> Arnold Heemink <br> Marlies van der Lugt <br> Jacco Groeneweg</small>
+							</div>
+								<img src="./Figures/deltares_logo.png" alt="Deltares" width="20%" style="background: #ffffff00; display: inline-block;vertical-align: bottom;padding-left: 9%;padding-top: 10%;">
+						</div>
+						
+						<!-- <div >
+							<img src="./Figures/TU_Delft_logo.png" alt="TUD" width="20%" style="background: #00000000" class="myShadow"> tu delft white logo goes here
+							<img src="./Figures/deltares_logo.png" alt="Deltares" width="20%" style="background: #ffffff00">
+						</div> -->
+
+					
+
+					</section>
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- #########################     Introduction      ###############################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+					<!--  Slide 2 -->
+					<section>
+						<h3> Introduction</h3>
+						<hr>
+					</section>
+
+
+					<!--  Intro -->
+					<section>
+
+						<h3 align='left' style="text-transform: none">Introduction</h3>
+						<hr>
+
+						<!--  Slide 2-1 -->
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">Near-shore region</h4>
+							<br>
+							<ul>
+								<li>Wave dynamics depends on the depth</li>
+								<li>Processes occur at small spatial and temporal scale</li>
+								<li>Approximate modelling of these processes</li>
+								<li>Uncertainties in the measurements</li>
+							</ul>
+							<aside class="notes">
+								Motion of waves governed by complicated processes. Uncertainties due to various origins.
+							</aside>
+						</section>
+
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">Dominant processes in the Near-shore</h4>
+							<img width="50%" src="./Figures/Allin1.png" alt="Breaking" style="background: #00000000">
+						</section>
+
+
+						<!-- Problem statement -->
+						<section>
+							<h4 align='left' style="text-transform: none">Problem statement</h4>
+							<img src="./Figures/ProblemStatement.png" style="background: #00000000" width="50%" >
+							<p style="font-size: 25px">
+									\begin{align}
+									\dfrac{\partial E(\mathbf{x},t)}{\partial t} + \nabla.(E(\mathbf{x},t)\mathbf{C}(\mathbf{x},t)) =
+									S(\mathbf{x},t)
+									\end{align}
+							</p>
+						</section>
+
+						<!--  Slide 2-2 -->
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">Existing Models</h4>
+							<ul>
+								<li>Takes deterministic approach</li>
+								<li>Requires high resolution</li>
+								<li>Tends to be computationally expensive </li>
+								<li>Do not handel uncertainties implicitly</li>
+							</ul>
+							<aside class="notes">Near-shore more processes occuring on small scale</aside>
+						</section>
+
+						<!--  Slide 2-3 -->
+						<section>
+							<br><br>
+							<h4 align='left' style="text-transform: none">New Stochastic Approach</h4>
+							<ul>
+								<li>Solving same equations with different approach</li>
+								<li>Computationally less expensive</li>
+								<li>Help quantify the uncertainties</li>
+							</ul>
+						</section>
+
+						<!--  Slide 2-3 -->
+						<section>
+							<br><br>
+							<h4 align='left' style="text-transform: none">Particle dual of wave</h4>
+							<table style="font-size: 25pt">
+								<tr>
+									<td align="center" width="45%" style="border: 4px solid white;">
+										<p>
+											<u>Wave</u> <br>
+											<img src="./Figures/Wave.png" style="background: #00000000" width="60%"><br>
+											Wave dynamics <br>
+											Energy density <br>
+											Energy balance <br>
+											Energy flux <br>
+											Defined by $f(\mathbf{x})$
+										</p>
+									</td>
+									<td  align="center" width="5%" style="vertical-align: middle;font-size: 30pt">$\iff$</td>
+									<td align="center" width="45%" style="border: 4px solid white;">
+										<p>
+											<u>Particle</u> <br>
+											<img src="./Figures/Particle.png" style="background: #00000000" width="6%"><br>
+											Particle dynamics <br>
+											Probability density <br>
+											Fokker-Planck <br>
+											Particle flux <br>
+											Localised at $\mathbf{x}$
+									</p>
+									</td>
+								</tr>
+							</table>
+							<p>$\mathbf{x} = [ x, y, \theta, \omega; e ]$</p>
+						</section>
+
+						<section>
+							<br>
+							<h4 align='right' style="text-transform: none">Step-1</h4>
+							<img src="./Figures/Pstep12.png" style="background: #00000000" width="50%">
+							<p>Sample particles at the boundary</p>
+						</section>
+						
+						<section>
+							<br>
+							<h4 align='right' style="text-transform: none">Step-2</h4>
+							<img src="./Figures/Pstep22.png" style="background: #00000000" width="50%">
+							<p>Propagate particles in the domain and update energy</p>
+						</section>
+						
+						<section>
+							<br>
+							<h4 align='right' style="text-transform: none">Step-3</h4>
+							<img src="./Figures/Pstep32.png" style="background: #00000000" width="50%">
+							<p>Estimate energy density and spectrum</p>
+						</section>
+
+
+						
+
+
+						
+						
+						<!-- <section>
+							<br>
+					
+							<table width='100%' style="margin: 0%; padding:0%">
+								<tr width='100%' align="center">
+									<td width='40%' align="center" style=" vertical-align:middle;">Energy flux</td>
+									<td width='20%' align="center" style=" vertical-align:middle;font-size: 60pt; color:#E3CEAB">
+										$\rightarrow$</td>
+									<td width='40%' align="center" style=" vertical-align:middle; ">Particle flux
+									</td>
+								</tr>
+							</table>
+
+							
+							<table width='100%' style="margin: 0%; padding:0%">
+								<tr width='100%' align="center">
+									<td width='40%' align="center" style=" vertical-align:middle;font-size: 40pt; color:rgb(111, 209, 211)">
+										$\downarrow$</td>
+									<td width='20%' align="center" style=" vertical-align:middle;font-size: 40pt; color:#E3CEAB">
+									</td>
+									<td width='40%' align="center" style=" vertical-align:middle;font-size: 40pt; color:rgb(111, 209, 211)">
+										$\downarrow$</td>
+								</tr>
+							</table>
+
+
+							
+							<table width='100%' style="margin: 0%; padding:0%">
+								<tr width='100%' align="center">
+									<td width='40%' align="center" style=" vertical-align:middle;">Energy Balance</td>
+									<td width='20%' align="center" style=" vertical-align:middle;font-size: 60pt; color:#E3CEAB">
+										$\rightarrow$
+									</td>
+									<td width='40%' align="center" style=" vertical-align:middle; "> Fokker-Planck
+									</td>
+								</tr>
+							</table>
+
+							
+							<table width='100%' style="margin: 0%; padding:0%">
+								<tr width='100%' align="center">
+									<td width='40%' align="center" style=" vertical-align:middle;font-size: 40pt; color:rgb(111, 209, 211)">
+										$\downarrow$</td>
+									<td width='20%' align="center" style=" vertical-align:middle;font-size: 40pt; color:#E3CEAB">
+									</td>
+									<td width='40%' align="center" style=" vertical-align:middle;font-size: 40pt; color:rgb(111, 209, 211)">
+										$\downarrow$</td>
+								</tr>
+							</table>
+
+							
+							<table width='100%' style="margin: 0%; padding:0%">
+								<tr width='100%' align="center">
+									<td width='40%' align="center" style=" vertical-align:middle;">Energy Distribution</td>
+									<td width='20%' align="center" style=" vertical-align:middle;font-size: 60pt; color:#E3CEAB"> $\leftarrow$
+									</td>
+									<td width='40%' align="center" style=" vertical-align:middle; "> Particle Distribution
+									</td>
+								</tr>
+							</table>
+						</section> -->
+						
+						<!-- <section>
+							<h4 align='right' style="text-transform: none" >Shoaling</h4>
+							<img width="80%" src="./Figures/Shoaling2.png" alt="Shoaling" style="background: #00000000">
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none" >Refraction</h4>
+							<img width="60%" src="./Figures/Refraction.png" alt="Refraction" style="background: #00000000">
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none" >Bottom Friction</h4>
+							<img width="80%" src="./Figures/BottomFric.png" alt="BottomFric" style="background: #00000000">
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Depth-induced breaking</h4>
+							<img width="60%"src="./Figures/Breaking.png" alt="Breaking" style="background: #00000000">
+						</section> -->
+
+					</section>
+
+
+
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- #########################     Particle Model    ###############################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+					<section>
+						<h3>Model Description</h3>
+						<hr>
+					</section>
+
+					<!--  Slide 5 -->
+					<section>
+						<h3 align="left"style="text-transform: none">Model Description</h3>
+						<hr>
+
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">Energy Distribution</h4>
+							<img src="./Figures/SpectralDistribution.png" alt="Breaking" style="background: #00000000">
+						</section>
+
+						<!--  Slide 4-2 -->
+						<section>
+							<h4 align='left' style="text-transform: none">Interpretation of Energy Density</h4>
+							<br>
+							<p style="font-size: 25pt">
+								\begin{align}
+								E(\mathbf{x},t) = E_{0}(t).\varphi(\mathbf{x},t) &=
+								E_{0}(t).\varphi(\mathbf{x}_p,t).\varphi(\mathbf{x}_s,t|\mathbf{x}_p) \\ \\
+								\mbox{where} \ \ \mathbf{x}_p = [x,y]^T, \ & \ \mathbf{x}_s = [\theta,\omega]^T
+								\end{align}
+							</p>
+						</section>
+
+						<!--  Slide 4-1 -->
+						<section>
+							<h4 align='left' style="text-transform: none">Generalized Setting</h4>
+							<p align='left' style="font-size: 25pt">
+								\begin{align}
+								\mathbf{x}= [x,y,\theta,\omega]^T, \quad
+								\mathbf{C} = [C_x,C_y,C_\theta,C_\omega]^T
+								\end{align}
+							</p>
+							<p> Domain: $R \subseteq \mathbb{R}^4$, Boundary: $\partial R$ </p> <br>
+							<small>Velocity field $\mathbf{C}$ is derived from Shoaling and Reffraction models</small>
+						</section>
+
+						<!--  Slide 4-2 -->
+						<section>
+							<h4 align='left' style="text-transform: none">Equations to be solved</h4>
+							<br>
+							<p align='left' style="font-size: 25pt">
+								\begin{align}
+								\dfrac{\partial E(\mathbf{x},t)}{\partial t} + \nabla.(E(\mathbf{x},&t)\mathbf{C}(\mathbf{x},t)) =	S(\mathbf{x},t)
+								\\  &\Downarrow \\
+								\frac{\partial}{\partial t}p(\textbf{x},t) + \nabla.&(p(\textbf{x},t)\mathbf{C}) = 0.
+								\end{align}
+							</p> <br>
+							<small class="fragment"> <span>$p(\textbf{x},t)\propto E(\mathbf{x},t)$</span> <span>$\ \ \ \leftrightarrow \ \ \ S(\mathbf{x},t) = 0$</span></small>
+							<br>
+						</section>
+
+
+						<!--  Slide 4-1 -->
+						<!-- <section>
+							<h4 align='left' style="text-transform: none">Generalized Setting</h4>
+							<p align='left' style="font-size: 25pt">
+								\begin{align}
+								\mathbf{x}= [x,y,\theta,\omega]^T, \quad
+								\mathbf{C} = [C_x,C_y,C_\theta,C_\omega]^T
+								\end{align}
+							</p>
+							<p> Domain: $R \subseteq \mathbb{R}^4$, Boundary: $\partial R$ </p> <br>
+							<p align='left'>Energy Balance Equation</p>
+							<p style="font-size:28px;">
+								\begin{align}
+								\dfrac{\partial E(\mathbf{x},t)}{\partial t} + \nabla.(E(\mathbf{x},t)\mathbf{C}(\mathbf{x},t)) =
+								S(\mathbf{x},t)
+								\end{align}
+							</p>
+						</section> -->
+
+						<!-- <section>
+						<br>
+							<img class='zoc ' width="40%" src="./Figures/4Dspace.png" align='center' >
+							<p>Interpretation of $\mathbf{x}=[x,y,\theta,\omega]$</p>
+					</section> -->
+
+
+
+						<!--  Slide 4-2 -->
+						<!-- <section>
+							<h4 align='left' style="text-transform: none">Fokker-Planck Equation</h4>
+							<br>
+							<p align='left' style="font-size: 2pt">
+								\begin{align}
+								\mathbf{x}= [x,y,\theta,\omega]^T, \quad
+								\mathbf{C} = [C_x,C_y,C_\theta,C_\omega]^T
+								\end{align} <br>
+								\begin{align}
+								\frac{\partial}{\partial t}p(\textbf{x},t) + \nabla.(p(\textbf{x},t)\mathbf{C}) = 0.
+								\end{align}
+							</p>
+							<br>
+						</section> -->
+
+
+
+
+						<!--  Slide 5-2 -->
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">Accommodating Source Term</h4> 
+							<p style="font-size: 25pt">
+								\begin{align}
+								E(\mathbf{x},t) = E_h(\mathbf{x},t)w(\mathbf{x},t) \\
+								\end{align}</p>
+								<p style="font-size: 25pt" class="fragment">
+									\begin{align}
+								&\quad\quad\downarrow \\ 
+								\frac{d e}{d t} = e&\frac{S(\textbf{x},t)}{E(\textbf{x},t)} = e\lambda(\mathbf{x},t)
+								\end{align}
+							</p>
+							<p style="font-size: 25pt" class="fragment">
+								\begin{align}
+								&\downarrow \\ 
+								e(t) =& e_0\exp\left(\lambda t\right)
+								\end{align}
+							</p>
+						</section>
+
+						<section>
+							<h4 align='left' style="text-transform: none">Multiple source terms</h4>
+							<p style="font-size: 25pt">
+								\begin{align*}
+								S_{tot}(\textbf{x},t) &= S_{1}(\textbf{x},t) + S_{2}(\textbf{x},t)\dots \\
+								\implies \lambda_{tot} &= \lambda_{1} +\lambda_{2}\dots \\
+								\implies e(t) &= e_0\exp(\lambda_{1} t)\exp(\lambda_{2}t)\dots
+								\end{align*}
+							</p>
+						</section>
+
+						<section>
+							<h4 align='left' style="text-transform: none">Bottom friction</h4>
+							<p style="font-size: 25pt">
+								\begin{align}
+								\lambda_{fric} = \frac{ S_{fric}(\textbf{x},t)}{E(\textbf{x},t) } = -C_b \frac{\omega^2}{g^2\sinh^2(kd)}
+								\end{align}
+							</p>
+						</section>
+
+						
+
+						<section>
+							<h4 align='left' style="text-transform: none">Depth-induced wave breaking</h4><br>
+							<p style="font-size: 25pt">
+								\begin{align}
+								\lambda_{br} = \frac{ S_{br}(\textbf{x},t)}{E(\textbf{x},t) } = -\frac{\alpha\rho g \big[ Q_0\bar{f}_0
+								H_{max}^2
+								\big]_{\textbf{x}_p,t}}{4E(\textbf{x}_p,t)}
+								\end{align}
+							</p>
+						</section>
+
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">Picard's iteration</h4>
+
+							<table>
+								<tr>
+									<td width="35%" align="center" style="vertical-align: middle;">Set <br><br> $\lambda_{br}^i = \frac{S_{br}^{i-1}}{E^{i-1}}$
+									</td>
+									<td width="30%" align="center" style="vertical-align: middle">
+											<img src="./Figures/2Arrows.png" style="background: #00000000;opacity: 0.7;" >
+											
+									</td>
+									<td width="35%" align="center" style="vertical-align: middle;">Estimate <br><br> $S_{br}^{i}, $
+										$ E^{i}$ <br> $i$++</td>
+								</tr>
+							</table>
+							<p align="left"><small align="left">with $\lambda_{br}^0=0$ <br> Stop when $E^{i}\approx E^{i-1}$</small></p>
+						</section>
+
+						<!-- <section>
+							<h4 align='left' style="text-transform: none">Picard's iteration</h4>
+							<p style="font-size: 25pt">
+							\begin{align}
+							\lambda_{br}^i = \frac{S_{br}^{i-1}}{E^{i-1}},  \quad \lambda_{br}^0 = 0
+							\end{align}
+							</p>
+						</section> -->
+
+
+						<!--  Slide 5-2  #E3CEAB rgb(111, 209, 211)-->
+						<section>
+							<br>
+							<h4 align='left' style="text-transform: none">The Algorithm </h4>
+							<div style="font-family: monospace; background-color: #3F3F3F; color: #DCDCDC" align='left'>
+								<br>
+								<ul style="font-size: 18pt">
+
+									<li align='left'> Discretize time in $t_1,t_2,\dots$</li>
+									<br>
+
+									<!--  Initial loop -->
+									<table align='left' width='100%' >
+										<tr width='100%' width='100%'>
+											<td align='left' width="60%">
+												<li align='left'>
+													For $i = 1,2,\dots$ do:
+													<ul style="list-style-type:disc;font-size: 18pt">
+														<li align='left'>Sample $\mathbf{x}$ from $E(\mathbf{x},t_i)|_{\partial R}$</li>
+														<li align='left'>Assign energy to each particle</li>
+														<li align='left'>Propagate every particle by one step</li>
+													</ul>
+												</li>
+											</td>
+											<td style="vertical-align: middle; font-size: 30pt; color:#E3CEAB" width="10%"> $\Bigg\}$ </td>
+											<td style="vertical-align: middle; color: rgb(111, 209, 211)" width="30%"> Particle path computation
+											</td>
+										</tr>
+									</table>
+
+									<!-- Mid homogeneous estimaiton -->
+									<br>
+									<li align='left'> Estimate $E_h(\mathbf{x},t)$</li>
+									<br>
+
+
+
+									<!-- Picard's Iteration -->
+									<table align='left' width='100%'>
+										<tr width='100%'>
+											<td align='left' width="60%">
+												<li align='left'>
+													For each iteration do:
+													<ul style="list-style-type:disc;font-size: 18pt">
+														<li align='left'>Update $S(\mathbf{x},t)$ </li>
+														<li align='left'>Update $e$</li>
+														<li align='left'>Estimate $E(\mathbf{x},t_i)$</li>
+													</ul>
+												</li>
+											</td>
+											<td style="vertical-align: middle; font-size: 30pt; color:#E3CEAB" width="10%"> $\Bigg\}$ </td>
+											<td style="vertical-align: middle; color: rgb(111, 209, 211)" width="30%"> Picard's Iteration</td>
+										</tr>
+									</table>
+
+								</ul><br>
+							</div>
+						</section>
+
+
+
+
+
+
+
+
+						<!--  Slide 5-2 -->
+						<!-- <section>
+							<h4 align='left' style="text-transform: none">Estimation of Ensemble Properties</h4>
+							<p align='left' style="font-size:28px;">For $\Delta R \subseteq R$ at time $t$</p><br>
+							<p style="font-size:28px;">
+								\begin{align*}
+								E_{\Delta R} = \int_{\Delta R} E(\textbf{x},t) = \sum_{i:\textbf{x}_i(t)\in\Delta R }e_i
+								\end{align*}
+								<br>
+								\begin{align*}
+								\mathbb{E}\bigg[ \psi \bigg| \Delta R \bigg] = \frac{1}{E_{\Delta R}}
+								\sum_{i:\textbf{x}_i(t)\in\Delta R }\psi_ie_i
+								\end{align*}
+							</p>
+						</section> -->
+
+
+
+					</section>
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- #########################     Results     #####################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+
+
+					<!--  Slide 6 -->
+					<section>
+						<h3> Results</h3>
+						<hr>
+						<br><br>
+					</section>
+
+
+
+
+
+					<!-- Linear Bathymetry -->
+					<!-- ###############################################################################-->
+					<section>
+
+
+						<h3 align='left' style="text-transform: none">Gently Sloping Beach</h3>
+						<hr>
+						<br><br>
+
+						<!-- Bathymetry  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Bathymetry</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/Lin_bathy/Lin_bathy_1D.png'>
+							<aside class="notes">
+								<p>Simple case for SWAN</p>
+								<p>Easy to find analytical solution</p>
+								<p>Test implementation</p>
+							</aside>
+						</section>
+
+						<!-- Boundary Conditions  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Boundary Conditions</h4>
+							<p> $T_{peak}=10s;\quad$ $H_s=5m$ <br></p>
+							<p align='left'>
+								&#8226; Sinusoidal waves, $\theta=180^o$,<br>
+								&#8226; Sinusoidal waves, $\theta=200^o$,<br>
+								&#8226; Sinusoidal waves, $\theta\sim \cos^2$, <br>
+								&#8226; Waves from Pierson-Moskowitz spectrum
+							</p>
+							<aside class="notes">Test Shoaling, Refraction, Depth-induced breaking, evolution of spectrum</aside>
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Aim</h4>
+							<ul>
+								<li>Test the implementaiton of Shoaling, Refraction and Depth-induced breaking</li>
+								<li>Evolution of spectrum</li>
+								<li>Convergence of Picard's iterations</li>
+							</ul>
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Shoaling</h4>
+							<!-- <img src="./Figures/Shoaling.png" width="50%" style="background: #00000000" > -->
+							<img src="./Figures/linearBathymetry2/B1/H_sig.png" alt="H_sig" class="zoc">
+							<p>Estimation of wave height</p>
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Refraction</h4>
+							<!-- <img src="./Figures/Refraction.png" width="50%" style="background: #00000000" border="none"> -->
+							<img src="./Figures/linearBathymetry2/B2/rays.png" alt="rays" width="45%" class="zoc">
+							<img src="./Figures/linearBathymetry2/B2/Theta_mean.png" alt="wave direction" width="45%" class="zoc">
+							<p>Effect of refraction</p>
+						</section>
+
+
+						<section>
+							<br>
+							<h4 align='right' style="text-transform: none">Spectral distribution</h4>
+							<img src="./Figures/linearBathymetry2/B4/T_mean2.png" alt="Tmean" width="45%" class="zoc">
+							<img src="./Figures/linearBathymetry2/B4/T_rms2.png" alt="Trms" width="45%" class="zoc">
+							<p>Mean and rms wave period</p>
+							<p><small>Determining the shape of the spectrum</small></p>
+						</section>
+
+						<section>
+							<br>
+							<h4 align='right' style="text-transform: none">Particle density</h4>
+							<img src="./Figures/linearBathymetry2/B4/Npts.png" alt="Tmean" width="45%" class="zoc">
+							<p><small>High density in  the shallow region</small></p>
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Directional distribution</h4>
+							<img src="./Figures/linearBathymetry2/B4/Theta_mean.png" alt="\theta mean" width="45%" class="zoc">
+							<img src="./Figures/linearBathymetry2/B4/Theta_std.png" alt="\theta rms" width="45%" class="zoc">
+							<p>Mean wave direction and directional spreading</p>
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Depth-induced wave breaking</h4>
+							<!-- <img src="./Figures/Breaking.png" width="50%" style="background: #00000000"> -->
+							<img src="./Figures/linearBathymetry2/B2/H_sigBr.png" alt="H sig br" width="45%" class="zoc">
+							<img src="./Figures/linearBathymetry2/B2/D_br.png" alt="Sbr" width="45%" class="zoc">
+							<p>Wave height with Depth-induced breaking</p>
+						</section>
+
+						<section>
+							<h4 align='right' style="text-transform: none">Convergence behaviour</h4>
+							<!-- <img src="./Figures/linearBathymetry2/B2/D_br.png" alt="Sbr" width="45%" class="zoc"> -->
+							<img src="./Figures/linearBathymetry2/B2/convergence.png" alt="Sbr" width="45%" class="zoc">
+							<p>$\%$ change in average energy density</p>
+						</section>
+
+				
+						<!--  C time -->
+						<section>
+							<h4 align='right' style="text-transform: none">Computational Time</h4><br><br>
+							<table style="font-size: 20pt;">
+								<tr>
+									<th colspan="2"></th>
+									<th>Monochromatic <br>wave</th>
+									<th>Waves from <br>a spectrum</th>
+								</tr>
+								<tr>
+									<td colspan="2">SWAN Model</td>
+									<td>80s</td>
+									<td>270s</td>
+								</tr>
+								<tr>
+									<td rowspan="3" style='vertical-align: middle;'>Particle Model</td>
+									<td>Ray Computation</td>
+									<td>2s</td>
+									<td>50s</td>
+								</tr>
+								<tr>
+									<td>Time per iteration</td>
+									<td>0.8s</td>
+									<td>10s</td>
+								</tr>
+								<tr>
+									<td>Total time <br> till convergence</td>
+									<td>10s</td>
+									<td>150s</td>
+								</tr>
+								<tr></tr>
+							</table>
+						</section>
+
+					</section>
+
+					<!-- Bottom friction -->
+					<section>
+
+
+						<h3 align='left' style="text-transform: none">Shallow flume</h3>
+						<hr>
+						<br><br>
+
+
+						<!-- Bathymetry  -->
+						<section><br>
+							<h4 align='right' style="text-transform: none">Bathymetry</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/fricExp/Bathy.png'>
+							<h4 align='right' style="text-transform: none">Boundary condition</h4>
+							<p style="font-size: 25pt">Sinusoidal waves with $T=2.5s, \ $ $ H_s=0.1m, \ $ $ \theta=200^o$</p>
+							<small> Aim: To test the implementation of bottom friction </small>
+							<aside class="notes">Flow in a shallow flume</aside>
+						</section>
+
+						<section><br>
+							<h4 align='right' style="text-transform: none">Wave height and direction</h4>
+							<img src="./Figures/fricExp/wFric/H_sig.png" alt="\theta mean" width="45%" class="zoc">
+							<img src="./Figures/fricExp/wFric/Theta_mean.png" alt="\theta rms" width="45%" class="zoc">
+							<br>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$H_s$</td>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$\theta_{mean}$</td>
+								</tr>
+							</table>
+						</section>
+
+						<section><br>
+							<h4 align='right' style="text-transform: none">Dissipation rate</h4>
+							<img src="./Figures/fricExp/wFric/D_br.png" alt="\theta mean" width="45%" class="zoc">
+							<img src="./Figures/fricExp/wFric/D_fric.png" alt="\theta rms" width="45%" class="zoc">
+							<br>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$S_{br}$</td>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$S_{fric}$</td>
+								</tr>
+							</table>
+						</section>
+
+
+						<!--  C time -->
+						<section>
+							<h4 align='right' style="text-transform: none">Computational Time</h4><br><br>
+							<table style="font-size: 20pt;">
+								<tr>
+									<th colspan="2"></th>
+									<th>Without <br>friction</th>
+									<th>With <br>friction</th>
+								</tr>
+								<tr>
+									<td colspan="2">SWAN Model</td>
+									<td>100s</td>
+									<td>120s</td>
+								</tr>
+								<tr>
+									<td rowspan="3" style='vertical-align: middle;'>Particle Model</td>
+									<td>Ray Computation</td>
+									<td>2s</td>
+									<td>2s</td>
+								</tr>
+								<tr>
+									<td>Time per iteration</td>
+									<td>1s</td>
+									<td>2s</td>
+								</tr>
+								<tr>
+									<td>Total time <br> till convergence</td>
+									<td>13s</td>
+									<td>30s</td>
+								</tr>
+								<tr></tr>
+							</table>
+						</section>
+
+					</section>	
+
+
+					<!-- Nonlinear bathymetry -->
+					<!-- ###############################################################################-->
+					<section>
+
+
+						<h3 align='left' style="text-transform: none">Sigmoid Bathymetry</h3>
+						<hr>
+						<br><br>
+
+						<!-- Bathymetry and BC  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Bathymetry</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/sigmoidBathy/Bathy.png'>
+							<aside class="notes">Sigmoid shape with gaussian shoal</aside>
+							<h4 align='right' style="text-transform: none">Boundary Condition</h4>
+							<p style="font-size: 25pt">
+								$T_{peak}=10s;\quad$ $H_s=5m;\quad$ $\theta_{peak}=200^o$ <br>
+								$\omega \sim$ PM spectrum;$\quad$ $\theta\sim\cos^2$
+							</p>
+						</section>
+
+						<!-- Aim  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Aim</h4>
+							<p>
+								To test the model behaviour different bathymetry and various model parameter.
+							</p>
+							<aside class="notes">Shoaling, refraction, dpth-brking, evolution of spectrum</aside>
+						</section>
+
+						<!--  -->
+						<!-- <section>
+							<h4 align='right' style="text-transform: none">Energy Density</h4>
+							<div class='scrollable'>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/E_o20All_T10All_H5.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/Hs_o20All_T10All_H5.png'>
+									<p>$H_s$ and Energy density</p>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/E_o20All_T10All_H5_Br.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/Hs_o20All_T10All_H5_Br.png'>
+									<p>$H_s$ and Energy density with dissipaiton.</p>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/Dtot_o20All_T10All_H5_Br.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/AE_o20All_T10All_H5_Br.png'>
+									<p>Dissipation rate and average energy density.</p>
+								</div>
+
+
+							</div>
+							<aside class="notes">Slow convergence due to larger region affected by breaking</aside>
+						</section> -->
+
+
+						<!--  -->
+						<!-- <section>
+							<h4 align='right' style="text-transform: none">Evolution of Spectrum</h4>
+							<div class='scrollable'>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/oMean_o20All_T10All_H5.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/oStd_o20All_T10All_H5.png'>
+									<p>$\theta_{mean}$ and $\theta_{std}$.</p>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/TMean_o20All_T10All_H5.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/TStd_o20All_T10All_H5.png'>
+									<p>$T_{mean}$ and $T_{rms}$.</p>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/Sigmoid_bathy/Npt_o20All_T10ALl_H5.png'>
+									<p>Particle density.</p>
+								</div>
+
+								<aside class="notes">Computation of particle path took more time. More particles on Left</aside>
+
+							</div>
+						</section> -->
+
+
+						<!--  Figure slide template -->
+						<section>
+							<h4 align='right' style="text-transform: none">Computational Time</h4><br><br>
+							<table style="font-size: 20pt;">
+								<tr>
+									<th colspan="2"></th>
+									<th>Wave Spectrum</th>
+								</tr>
+								<tr>
+									<td colspan="2">SWAN Model</td>
+									<td>300s</td>
+								</tr>
+								<tr>
+									<td rowspan="3" style='vertical-align: middle;'>Particle Model</td>
+									<td>Ray Computation</td>
+									<td>180s</td>
+								</tr>
+								<tr>
+									<td>Time per iteration</td>
+									<td>40s</td>
+								</tr>
+								<tr>
+									<td>Total time <br> till convergence</td>
+									<td>800s</td>
+								</tr>
+								<tr></tr>
+							</table>
+							<aside class="notes">More time bacause large shallow region: slow particles: high particle density: Large
+								region affected by breaking: more iterations</aside>
+						</section>
+
+					</section>
+
+
+
+					<!--Beji-Battjes -->
+					<!-- ###############################################################################-->
+					<section>
+
+
+						<h3 align='left' style="text-transform: none">Flow Over Trapezoidal Bar</h3>
+						<hr>
+						<br><br>
+
+						<!-- Bathymetry  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Bathymetry</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/Beji_battjes/Trap_bot_marked.png'>
+							<small>Bathymetry with trapezoidal shoal and wave gage locations</small>
+							<aside class="notes">Comparison with real life case: Find additional important processes</aside>
+						</section>
+
+						<!-- Boundary Conditions  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Boundary Conditions</h4><br><br>
+							\begin{align}
+							\begin{bmatrix}
+							\\ \mbox{Dataset-1} \\ \\ \mbox{Dataset-2} \\ \
+							\end{bmatrix}
+							\times
+							\begin{bmatrix}
+							\\ \mbox{Long waves} \\ \\ \mbox{Short waves} \\ \
+							\end{bmatrix}
+							\times
+							\begin{bmatrix}
+							\\ \mbox{Sinusoidal} \\ \\ \mbox{JONSWAP} \\ \
+							\end{bmatrix}
+							\end{align}
+							<aside class="notes">8 different cases, wave height estimated from data, simulation with SWAN with same
+								processes, Simulation with SWASH</aside>
+						</section>
+
+
+						<!--  -->
+						<section>
+							<br><br>
+							<h4 align='right' style="text-transform: none">Dataset-1</h4>
+							<div style='position: relative;'>
+
+								<div style='position: absolute; top:40%; left: -23%; transform: rotate(90deg);'>
+									<small>Sinusoidal waves</small><span>&nbsp;&nbsp;&nbsp;</span><small>JONSWAP Spectrum</small>
+								</div>
+
+								<div>
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/SLNHs_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/SSNHs_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/JLNHs_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/JSNHs_comparison.png' style="padding: 0; margin: 0;">
+
+								</div>
+
+								<div>
+									<small>Long waves ($T =
+										2.5s$)</small><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><small>Short
+										waves ($T = 1s$)</small>
+								</div>
+
+
+
+							</div>
+							<aside class="notes">Match with swan; with swash for long waves; short waves break;</aside>
+						</section>
+
+						<!--  -->
+						<section>
+							<br><br>
+							<h4 align='right' style="text-transform: none">Dataset-2</h4>
+							<div style='position: relative;'>
+
+								<div style='position: absolute; top:40%; left: -23%; transform: rotate(90deg);'>
+									<small>Sinusoidal waves</small><span>&nbsp;&nbsp;&nbsp;</span><small>JONSWAP Spectrum</small>
+								</div>
+
+
+								<div>
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/SLHs_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/SHHs_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/JLHs_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Hs/JHHs_comparison.png' style="padding: 0; margin: 0;">
+
+								</div>
+
+								<div>
+									<small>Long waves ($T =
+										2s$)</small><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><small>Short
+										waves ($T = 1.25s$)</small>
+								</div>
+
+							</div>
+						</section>
+
+						<!--  -->
+						<section>
+							<h4 align='right' style='text-transform: none;'>$f_{rms}$</h4><br>
+
+							<div style='position: relative;'>
+
+								<div style='position: absolute; top:40%; left: -23%; transform: rotate(90deg);'>
+									<small>Sinusoidal waves</small><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><small>JONSWAP
+										Spectrum</small>
+								</div>
+
+
+
+								<div align='center' style='width: 100%;margin:0%; padding: 0%'>
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/SLNFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/SSNFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/SLFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/SHFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/JLNFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/JSNFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/JLFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<img class='zoc' src='./Figures/Beji_battjes/Frms/JHFrms_comparison.png' style="padding: 0; margin: 0;">
+
+									<div>
+										<small>Long
+											waves</small><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;</span><small>Short
+											waves</small>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+
+						<!--  Figure slide template -->
+						<section>
+							<h4 align='right' style="text-transform: none">Computational Time</h4><br><br>
+							<table style="font-size: 20pt;">
+								<tr>
+									<th colspan="2"></th>
+									<th>Monochromatic <br>wave</th>
+									<th>Wave spectrum</th>
+								</tr>
+								<tr>
+									<td colspan="2">SWAN Model</td>
+									<td>30s</td>
+									<td>90s</td>
+								</tr>
+								<tr>
+									<td rowspan="3" style='vertical-align: middle;'>Particle Model</td>
+									<td>Ray Computation</td>
+									<td>2s</td>
+									<td>40s</td>
+								</tr>
+								<tr>
+									<td>Time per iteration</td>
+									<td>1s</td>
+									<td>10s</td>
+								</tr>
+								<tr>
+									<td>Total time <br> till convergence</td>
+									<td>3s</td>
+									<td>50s</td>
+								</tr>
+								<tr></tr>
+							</table>
+						</section>
+
+					</section>
+
+
+
+
+
+					<!--Berkhoff shoal -->
+					<!-- ###############################################################################-->
+					<section>
+
+
+						<h3 align='left' style="text-transform: none">Flow Over an Elliptic Shoal</h3>
+						<hr>
+						<br><br>
+
+						<!-- Bathymetry  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Bathymetry</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/BerkhExp/Berkh_bot.png'>
+							<!-- <img class='zoc' style='width:80%;' src='./Figures/Berkhoff/Berkh_bot_sec_Lab.png'> -->
+						</section>
+
+						<!-- Sections  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Measured Sections</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/BerkhExp/Berkh_bot_sec_Lab.png'>
+						</section>
+
+						<!-- Bathymetry  -->
+						<section>
+							<h4 align='right' style="text-transform: none">Traced Rays</h4>
+							<img class='zoc' style='width:80%;' src='./Figures/BerkhExp/rays.png'>
+						</section>
+
+						<!--  Figure slide template -->
+						<section>
+							<h4 align='right' style="text-transform: none">Comparison</h4>
+							<div class='scrollable' style=" height: 320px;">
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/BerkhExp/Sec-1.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-2.png'>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-3.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-4.png'>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-5.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-6.png'>
+								</div>
+
+								<div class='scrChild'>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-7.png'>
+									<span>&nbsp;&nbsp;&nbsp;</span>
+									<img class='zoc' src='./Figures/BerkhExp//Sec-8.png'>
+								</div>
+
+
+							</div>
+						</section>
+
+
+
+
+						<!--  Figure slide template -->
+						<section>
+							<h4 align='right' style="text-transform: none">Computational Time</h4><br>
+							<table style="font-size: 20pt;">
+								<tr>
+									<th colspan="3"></th>
+								</tr>
+								<tr>
+									<td colspan="2">SWAN Model</td>
+									<td>280s</td>
+								</tr>
+								<tr>
+									<td style='vertical-align: middle;' rowspan="3">Particle Model</td>
+									<td>Ray Computation</td>
+									<td>40s</td>
+								</tr>
+								<tr>
+									<td>Time per iteration</td>
+									<td>10s</td>
+								</tr>
+								<tr>
+									<td>Total time <br> till convergence</td>
+									<td>50s</td>
+								</tr>
+								<tr></tr>
+							</table>
+						</section>
+
+					</section>
+
+
+
+
+
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ##########################   Conclusions   ####################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+
+					<!--  Slide 6 -->
+					<section>
+						<h3> Conclusions</h3>
+						<hr>
+					</section>
+
+					<section>
+						<h3 align='left'>Conclusions</h3>
+						<hr>
+
+						<!-- Implementation -->
+						<section>
+							<ul>
+								<li>Implementation</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>Energy density as probability density</li>
+									<li>Energy balance as Fokker-Planck equation</li>
+									<li>Wave energy as particles</li>
+									<li>Iterative approach for source terms</li>
+								</ul>
+							</ul>
+						</section>
+
+
+
+						<!-- Accuracy -->
+						<section>
+							<ul>
+								<li>Accuracy of the solution</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>At par with SWAN and analytical solution</li>
+									<li>Convergence of iterative scheme</li>
+									<li>Monochromatic as well as wave spectrum</li>
+									<li>Small error in shallower region</li>
+								</ul>
+							</ul>
+						</section>
+
+
+						<!-- Comput -->
+						<section>
+							<ul>
+								<li>Computational Cost</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>Comparable with SWAN</li>
+									<li>Depends on the bathymetry</li>
+									<li>Depends on number of particles</li>
+									<li>Scope of numerical optimization</li>
+								</ul>
+							</ul>
+						</section>
+
+
+						<!-- +proc -->
+						<section>
+							<ul>
+								<li>Additional Processes</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>Non-linear wave interactions</li>
+									<li>Diffraction</li>
+								</ul>
+							</ul>
+						</section>
+
+					</section>
+
+
+					<!--  Slide 6 -->
+					<section>
+						<h3>Future Scope</h3>
+						<hr>
+					</section>
+
+					<section>
+						<h3 align='left'>Future Scope</h3>
+						<hr>
+
+						<!-- Additional processes -->
+						<section>
+							<ul>
+								<li>Implementation of additional processes</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>Diffraction</li>
+									<li>Non-linear interactions</li>
+									<li>Bottom friction</li>
+									<li>White capping e.t.c</li>
+								</ul>
+							</ul>
+						</section>
+
+
+
+						<!-- Numerical Optimization -->
+						<section>
+							<ul>
+								<li>Numerical Optimization</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>Sophisticated sampling methods e.g. importance sampling, stratified sampling</li>
+									<li>Adaptive time-stepping</li>
+									<li>Efficient modelling of particle interactions</li>
+									<li>Parallelization and memory management</li>
+								</ul>
+							</ul>
+						</section>
+
+						<!-- Uncertainty Quantification -->
+						<section>
+							<ul>
+								<li>Uncertainty Quantification</li>
+								<hr>
+								<ul style="list-style-type:disc;">
+									<li>Quantifying estimation error</li>
+									<li>Combining with measurement and modelling errors</li>
+								</ul>
+							</ul>
+						</section>
+
+
+
+					</section>
+
+					<section>
+						<h3>Thank You</h3>
+						<hr>
+					</section>
+
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ########################   End of Presentation    #############################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+
+				</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'convex',
+				math: {
+				mathjax: "C:/Users/ashirgad/OneDrive - Stichting Deltares/Documents/MathJax/MathJax-master/MathJax-master/MathJax.js",
+				//'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+				config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/math/math.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

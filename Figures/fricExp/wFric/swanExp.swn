@@ -1,0 +1,43 @@
+$*************HEADING****************************************
+$
+PROJ 'swanExp' 'EXP'
+$
+$
+$ --|--------------------------------------------------------------|--
+$   | This SWAN input file is part of the bench mark tests for     |
+$   | SWAN. More information about this test can be found in       |
+$   | an accompanied document.                                     |
+$ --|--------------------------------------------------------------|--
+$
+$***********MODEL INPUT************************************
+MODE STAT ONED
+$
+CGRID 0. 0. 0. 30 0. 800 0 CIRCLE 200 0.001 3.0 500
+$
+$
+INPGRID BOTTOM 0. 0. 0. 3000 0 0.01 1
+READINP BOTTOM 1. 'bathy.in'  1 0 FREE
+$
+$
+BOUN SHAPE BIN PEAK DSPR POWER 
+BOUN SIDE E CCW CON PAR 0.1 2.5 200 500
+$
+$
+$ Processes
+$ OFF REFRAC
+$ OFF BREA
+FRIC JONSWAP cfjon=0.067
+OFF QUAD
+OFF WCAP
+$
+NUM ACCUR
+$
+$******************************************** OUTPUT REQUESTS *****************************************
+$
+CURVE  'LINE1' 0. 0.  600  30 0.
+TABLE  'LINE1' HEAD   'swanResult.out'  DIST DEP  HS  DIR DSPR TM01 TM02  RTP   VEL    DISSURF  QB DISBOT
+$        *     *           fname         1   2    3   4   5     6    7    8    9-10      11    12   13
+$
+TEST 1,0
+COMPUTE
+STOP
