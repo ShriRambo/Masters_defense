@@ -38,7 +38,7 @@
 
 
 					<!--  Slide 1 -->
-					<section data-background-image="./Figures/beachDark.jpg" data-background-transition="slide">
+					<section data-background-image="./Figures/beachDark.jpg" data-background-transition="none">
 						<p style="text-shadow: 3px 4px 10px #000000; color: rgb(238, 238, 238);font-family: 'Roboto', sans-serif;">A
 							Particle-based Approach for <br> Stochastic Modelling of Waves <br> in the Near-shore Region</p>
 							<p class="myShadow" style="font-size: 22px">29th August, 2019</p>
@@ -94,7 +94,7 @@
 							<h4 align='left' style="text-transform: none">Near-shore region</h4>
 							<br>
 							<ul>
-								<li>Wave dynamics depends on the depth</li>
+								<li>Wave dynamics depend on the depth</li>
 								<li>Processes occur at small spatial and temporal scale</li>
 								<li>Approximate modelling of these processes</li>
 								<li>Uncertainties in the measurements</li>
@@ -131,7 +131,7 @@
 								<li>Takes deterministic approach</li>
 								<li>Requires high resolution</li>
 								<li>Tends to be computationally expensive </li>
-								<li>Do not handel uncertainties implicitly</li>
+								<li>Do not handle uncertainties implicitly</li>
 							</ul>
 							<aside class="notes">Near-shore more processes occuring on small scale</aside>
 						</section>
@@ -143,7 +143,7 @@
 							<ul>
 								<li>Solving same equations with different approach</li>
 								<li>Computationally less expensive</li>
-								<li>Help quantify the uncertainties</li>
+								<li>Can work with low resolution</li>
 							</ul>
 						</section>
 
@@ -169,7 +169,7 @@
 										<p>
 											<u>Particle</u> <br>
 											<img src="./Figures/Particle.png" style="background: #00000000" width="6%"><br>
-											Localised at $\mathbf{x}$<br>
+											Localized at $\mathbf{x}$<br>
 											Particle dynamics <br>
 											Probability density <br>
 											Fokker-Planck <br>
@@ -199,7 +199,7 @@
 							<br>
 							<h4 align='right' style="text-transform: none">Step-3</h4>
 							<img src="./Figures/Pstep32.png" style="background: #00000000" width="50%">
-							<p>Estimate energy density and spectrum</p>
+							<p>Estimate energy density and wave properties</p>
 						</section>
 
 
@@ -343,22 +343,21 @@
 								\end{align}
 							</p>
 							<p> Domain: $R \subseteq \mathbb{R}^4$, Boundary: $\partial R$ </p> <br>
-							<small>Velocity field $\mathbf{C}$ is derived from Shoaling and Reffraction models</small>
+							<small>Velocity field $\mathbf{C}$ is derived from Shoaling and Refraction models</small>
 						</section>
 
 						<!--  Slide 4-2 -->
 						<section>
 							<h4 align='left' style="text-transform: none">Equations to be solved</h4>
-							<br>
 							<p align='left' style="font-size: 25pt">
 								\begin{align}
 								\dfrac{\partial E(\mathbf{x},t)}{\partial t} + \nabla.(E(\mathbf{x},&t)\mathbf{C}(\mathbf{x},t)) =	S(\mathbf{x},t)
 								\\  &\Downarrow \\
-								\frac{\partial}{\partial t}p(\textbf{x},t) + \nabla.&(p(\textbf{x},t)\mathbf{C}) = 0.
+								\frac{\partial}{\partial t}\varphi(\textbf{x},t) + \nabla.&(\varphi(\textbf{x},t)\mathbf{C}) = 0 
 								\end{align}
 							</p> <br>
-							<small class="fragment"> <span>$p(\textbf{x},t)\propto E(\mathbf{x},t)$</span> <span>$\ \ \ \leftrightarrow \ \ \ S(\mathbf{x},t) = 0$</span></small>
-							<br>
+							<p class="fragment"> <span>$ E_{h}(\mathbf{x},t)  = E(t)\varphi(\textbf{x},t)$</span> <span class="fragment">$\ \ \ \leftrightarrow \ \ \
+									S(\mathbf{x},t) = 0$</span></p>
 						</section>
 
 
@@ -411,7 +410,7 @@
 						<!--  Slide 5-2 -->
 						<section>
 							<br>
-							<h4 align='left' style="text-transform: none">Accommodating Source Term</h4> 
+							<h4 align='left' style="text-transform: none">Accommodating Source/Sink Term</h4> 
 							<p style="font-size: 25pt">
 								\begin{align}
 								E(\mathbf{x},t) = E_h(\mathbf{x},t)w(\mathbf{x},t) \\
@@ -430,7 +429,7 @@
 							</p>
 						</section>
 
-						<section>
+						<!-- <section>
 							<h4 align='left' style="text-transform: none">Multiple source terms</h4>
 							<p style="font-size: 25pt">
 								\begin{align*}
@@ -439,20 +438,30 @@
 								\implies e(t) &= e_0\exp(\lambda_{1} t)\exp(\lambda_{2}t)\dots
 								\end{align*}
 							</p>
-						</section>
+						</section> -->
 
-						<section>
-							<h4 align='left' style="text-transform: none">Bottom friction</h4>
-							<p style="font-size: 25pt">
+						<section><br>
+							<h4 align='left' style="text-transform: none">Dissipation Terms</h4>
+							
+							<p style="font-size: 25pt">Bottom friction
 								\begin{align}
 								\lambda_{fric} = \frac{ S_{fric}(\textbf{x},t)}{E(\textbf{x},t) } = -C_b \frac{\omega^2}{g^2\sinh^2(kd)}
 								\end{align}
 							</p>
+							<br>
+							<p style="font-size: 25pt">Depth-induced wave breaking
+								\begin{align}
+								\lambda_{br} = \frac{ S_{br}(\textbf{x},t)}{E(\textbf{x},t) } = -\frac{\alpha\rho g \big[ Q_0\bar{f}_0
+								H_{max}^2
+								\big]_{\textbf{x}_p,t}}{4E(\textbf{x}_p,t)}
+								\end{align}
+							</p>
+							<aside class="notes">JONSWAP model for friction, Battjes-Jansen model for breaking</aside>
 						</section>
 
 						
 
-						<section>
+						<!-- <section>
 							<h4 align='left' style="text-transform: none">Depth-induced wave breaking</h4><br>
 							<p style="font-size: 25pt">
 								\begin{align}
@@ -461,7 +470,7 @@
 								\big]_{\textbf{x}_p,t}}{4E(\textbf{x}_p,t)}
 								\end{align}
 							</p>
-						</section>
+						</section> -->
 
 						<section>
 							<br>
@@ -479,7 +488,7 @@
 										$ E^{i}$ <br> $i$++</td>
 								</tr>
 							</table>
-							<p align="left"><small align="left">with $\lambda_{br}^0=0$ <br> Stop when $E^{i}\approx E^{i-1}$</small></p>
+							<div align="left"><small>with $\lambda_{br}^0=0$ <br> Stop when $E^{i}\approx E^{i-1}$</small></div>
 						</section>
 
 						<!-- <section>
@@ -511,9 +520,9 @@
 													For $i = 1,2,\dots$ do:
 													<ul style="list-style-type:disc;font-size: 18pt">
 														<li align='left'>Sample $\mathbf{x}$ from $E(\mathbf{x},t_i)|_{\partial R}$</li>
-														<li align='left'>Assign energy to each particle</li>
-														<li align='left'>Propagate every particle by one step</li>
-														<li align='left'>Update particle energy if possible</li>
+														<li align='left'>Evaluate $e$</li>
+														<li align='left'>Update every $\mathbf{x}$</li>
+														<li align='left'>Update $e$ if possible</li>
 													</ul>
 												</li>
 											</td>
@@ -537,9 +546,9 @@
 												<li align='left'>
 													For each iteration do:
 													<ul style="list-style-type:disc;font-size: 18pt">
-														<li align='left'>Update $S(\mathbf{x},t)$ </li>
+														<li align='left'>Estimate $E, S$</li>
+														<li align='left'>Estimate $\lambda$</li>
 														<li align='left'>Update $e$</li>
-														<li align='left'>Estimate $E(\mathbf{x},t_i)$</li>
 													</ul>
 												</li>
 											</td>
@@ -596,6 +605,7 @@
 						<h3> Results</h3>
 						<hr>
 						<br><br>
+						<aside class="notes">Numerical experiments, Comparison with SWAN, analytical solution, lab measurement data </aside>
 					</section>
 
 
@@ -615,10 +625,7 @@
 						<section>
 							<h4 align='right' style="text-transform: none">Bathymetry</h4>
 							<img class='zoc' style='width:80%;' src='./Figures/linearBathymetry2/Bathy.png'>
-							<aside class="notes">
-								<p>Simple case for SWAN</p>
-								<p>Easy to find analytical solution</p>
-								<p>Test implementation</p>
+							<aside class="notes"> 1D, depth do not change in y, SWAN 1d mode, particle model unit width
 							</aside>
 						</section>
 
@@ -632,7 +639,7 @@
 								&#8226; Sinusoidal waves, $\theta\sim \cos^2$, <br>
 								&#8226; Waves from Pierson-Moskowitz spectrum
 							</p>
-							<aside class="notes">Test Shoaling, Refraction, Depth-induced breaking, evolution of spectrum</aside>
+							<aside class="notes">To test individual processes</aside>
 						</section>
 
 						<section>
@@ -641,7 +648,9 @@
 								<li>Test the implementaiton of Shoaling, Refraction and Depth-induced breaking</li>
 								<li>Evolution of spectrum</li>
 								<li>Convergence of Picard's iterations</li>
+								<li>Computational cost</li>
 							</ul>
+							<aside class="notes">Test Shoaling, Refraction, Depth-induced breaking, evolution of spectrum</aside>
 						</section>
 
 						<section>
@@ -649,6 +658,7 @@
 							<!-- <img src="./Figures/Shoaling.png" width="50%" style="background: #00000000" > -->
 							<img src="./Figures/linearBathymetry2/B1/H_sig.png" alt="H_sig" class="zoc">
 							<p>Estimation of wave height</p>
+							<aside class="notes">Good with SWAN</aside>
 						</section>
 
 						<section>
@@ -656,7 +666,13 @@
 							<!-- <img src="./Figures/Refraction.png" width="50%" style="background: #00000000" border="none"> -->
 							<img src="./Figures/linearBathymetry2/B2/rays.png" alt="rays" width="45%" class="zoc">
 							<img src="./Figures/linearBathymetry2/B2/Theta_mean.png" alt="wave direction" width="45%" class="zoc">
-							<p>Effect of refraction</p>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">Particle path</td>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$\theta$</td>
+								</tr>
+							</table>
+							<aside class="notes">Waves becomes parellel to coast, </aside>
 						</section>
 
 
@@ -665,22 +681,35 @@
 							<h4 align='right' style="text-transform: none">Spectral distribution</h4>
 							<img src="./Figures/linearBathymetry2/B4/T_mean2.png" alt="Tmean" width="45%" class="zoc">
 							<img src="./Figures/linearBathymetry2/B4/T_rms2.png" alt="Trms" width="45%" class="zoc">
-							<p>Mean and rms wave period</p>
-							<p><small>Determining the shape of the spectrum</small></p>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$T_{mean}$</td>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$T_{rms}$</td>
+								</tr>
+							</table>
+							<small>Determining the shape of the spectrum</small>
+							<aside class="notes">To fit parametric spectrum, Bias due to finite bins, Noisy on right smooth on left</aside>
 						</section>
 
 						<section>
 							<br>
 							<h4 align='right' style="text-transform: none">Particle density</h4>
-							<img src="./Figures/linearBathymetry2/B4/Npts.png" alt="Tmean" width="45%" class="zoc">
-							<p><small>High density in  the shallow region</small></p>
+							<img src="./Figures/linearBathymetry2/B4/Npts.png" alt="Tmean" width="45%" class="zoc"> <br>
+							<small>High density in  the shallow region</small>
+							<aside class="notes">High particle density on left. Bump on right due to sampling method and time descritization</aside>
 						</section>
 
 						<section>
 							<h4 align='right' style="text-transform: none">Directional distribution</h4>
 							<img src="./Figures/linearBathymetry2/B4/Theta_mean.png" alt="\theta mean" width="45%" class="zoc">
 							<img src="./Figures/linearBathymetry2/B4/Theta_std.png" alt="\theta rms" width="45%" class="zoc">
-							<p>Mean wave direction and directional spreading</p>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$\theta_{mean}$</td>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$std(\theta)$</td>
+								</tr>
+							</table>
+							<aside class="notes">Waves becomes parallel to coast line, spreading decreases.</aside>
 						</section>
 
 						<section>
@@ -688,7 +717,13 @@
 							<!-- <img src="./Figures/Breaking.png" width="50%" style="background: #00000000"> -->
 							<img src="./Figures/linearBathymetry2/B2/H_sigBr.png" alt="H sig br" width="45%" class="zoc">
 							<img src="./Figures/linearBathymetry2/B2/D_br.png" alt="Sbr" width="45%" class="zoc">
-							<p>Wave height with Depth-induced breaking</p>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$H_s$</td>
+									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$S_{br}$</td>
+								</tr>
+							</table>
+							<aside class="notes">Energy dissipation near coast, discrepancy due to limiter</aside>
 						</section>
 
 						<section>
@@ -696,6 +731,7 @@
 							<!-- <img src="./Figures/linearBathymetry2/B2/D_br.png" alt="Sbr" width="45%" class="zoc"> -->
 							<img src="./Figures/linearBathymetry2/B2/convergence.png" alt="Sbr" width="45%" class="zoc">
 							<p>$\%$ change in average energy density</p>
+							<aside class="notes">Quick convergence, very close to zero $10^{-8}$</aside>
 						</section>
 
 				
@@ -731,6 +767,7 @@
 								</tr>
 								<tr></tr>
 							</table>
+							<aside class="notes">Particle model fast, fasterr for monochromatic waves as only 1 sample needed</aside>
 						</section>
 
 					</section>
@@ -782,11 +819,12 @@
 									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$S_{fric}$</td>
 								</tr>
 							</table>
+							<aside class="notes">Implementation of bottom friction is accurate</aside>
 						</section>
 
 
 						<!--  C time -->
-						<section>
+						<!-- <section>
 							<h4 align='right' style="text-transform: none">Computational Time</h4><br><br>
 							<table style="font-size: 20pt;">
 								<tr>
@@ -817,7 +855,7 @@
 								</tr>
 								<tr></tr>
 							</table>
-						</section>
+						</section> -->
 
 					</section>	
 
@@ -835,22 +873,22 @@
 						<section>
 							<h4 align='right' style="text-transform: none">Bathymetry</h4>
 							<img class='zoc' style='width:80%;' src='./Figures/sigmoidBathy/Bathy.png'>
-							<aside class="notes">Sigmoid shape with gaussian shoal</aside>
 							<h4 align='right' style="text-transform: none">Boundary Condition</h4>
 							<p style="font-size: 25pt">
 								$T_{peak}=10s;\quad$ $H_s=5m;\quad$ $\theta_{peak}=200^o$ <br>
 								$\omega \sim$ PM spectrum;$\quad$ $\theta\sim\cos^2$
 							</p>
+							<aside class="notes">Test dependence on bathymetry and parameters</aside>
 						</section>
 
 						<!-- Aim  -->
-						<section>
+						<!-- <section>
 							<h4 align='right' style="text-transform: none">Aim</h4>
 							<p>
 								To test the model behaviour different bathymetry and various model parameter.
 							</p>
 							<aside class="notes">Shoaling, refraction, dpth-brking, evolution of spectrum</aside>
-						</section>
+						</section> -->
 
 						<section><br>
 							<h4 align='right' style="text-transform: none">Wave height and convergence</h4>
@@ -863,6 +901,7 @@
 									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">Convergence</td>
 								</tr>
 							</table>
+							<aside class="notes">Took more iterations to converge, yet the error is not so small</aside>
 						</section>
 
 						<section>
@@ -870,6 +909,7 @@
 							<h4 align='right' style="text-transform: none">Dissipation rate</h4> <br>
 							<img src="./Figures/sigmoidBathy/D_br.png" alt="\theta mean" width="45%" class="zoc">
 							<p> $S_{br}$</p>
+							<aside class="notes">Because dissipation occuring further form shore, large area affected by it,</aside>
 						</section>
 
 						<section><br>
@@ -883,6 +923,7 @@
 									<td width="50%" style="vertical-align: middle; font-size: 25pt" align="center">$\theta_{mean}$</td>
 								</tr>
 							</table>
+							<aside class="notes">B Quick</aside>
 						</section>
 
 						<!-- <section><br>
@@ -1018,6 +1059,7 @@
 									<td width="25%" align="center" style="vertical-align: middle; font-size:18pt">$dt=5s, N=500$  <br> $120s$</td>
 								</tr>
 							</table>
+							<aside class="notes">Particle model can trade accuracy for speed</aside>
 							</section>
 
 					</section>
@@ -1047,7 +1089,7 @@
 						</section>
 
 						<!-- Boundary Conditions  -->
-						<section>
+						<!-- <section>
 							<h4 align='right' style="text-transform: none">Boundary Conditions</h4><br>
 							<p>
 							\begin{align}
@@ -1066,7 +1108,7 @@
 							</p>
 							<aside class="notes">8 different cases, wave height estimated from data, simulation with SWAN with same
 								processes, Simulation with SWASH</aside>
-						</section>
+						</section> -->
 
 
 						<!--  -->
@@ -1075,8 +1117,8 @@
 							<h4 align='right' style="text-transform: none">Wave height</h4>
 							<div style='position: relative; transform: scale(0.8)'>
 
-								<div style='position: absolute; top:40%; left: -23%; transform: rotate(90deg);'>
-									<small>Sinusoidal waves</small><span>&nbsp;&nbsp;&nbsp;</span><small>JONSWAP Spectrum</small>
+								<div style='position: absolute; top:40%; left: -23%; transform: rotate(-90deg);'>
+									<small>JONSWAP Spectrum</small><span>&nbsp;&nbsp;&nbsp;</span><small>Sinusoidal waves</small>
 								</div>
 
 								<div>
@@ -1099,7 +1141,7 @@
 
 
 							</div>
-							<aside class="notes">Match with swan; with swash for long waves; short waves break;</aside>
+							<aside class="notes">Good with high freq waves,</aside>
 						</section>
 
 												<section>
@@ -1131,7 +1173,7 @@
 												
 												
 													</div>
-													<aside class="notes">Match with swan; with swash for long waves; short waves break;</aside>
+													<aside class="notes">Needs more investigation, implementaiton of traids</aside>
 												</section>
 						<!--  -->
 						<!-- <section>
@@ -1249,6 +1291,8 @@
 							<img class='zoc' style='width:45%;' src='./Figures/BerkhExp/Bathy.png'>
 								<img class='zoc' style='width:45%;' src='./Figures/BerkhExp/Berkh_bot_sec_Lab.png'>
 							<!-- <img class='zoc' style='width:80%;' src='./Figures/Berkhoff/Berkh_bot_sec_Lab.png'> -->
+							<small>Two dimensional case</small>
+							<p>Sinusoidal waves with $T=1s$</p>
 						</section>
 
 						<!-- Sections  -->
@@ -1261,6 +1305,7 @@
 						<section>
 							<h4 align='right' style="text-transform: none">Traced Rays</h4>
 							<img class='zoc' style='width:55%;' src='./Figures/BerkhExp/rays.png'>
+							<aside class="notes">Diffraction missing</aside>
 						</section>
 
 						<!--  Figure slide template -->
@@ -1300,7 +1345,7 @@
 							<img class='zoc' src='./Figures/BerkhExp/Sec-3.png' style="width: 35%;padding: 0%;margin: 0%">
 							<img class='zoc' src='./Figures/BerkhExp/Sec-5.png' style="width: 35%;padding: 0%;margin: 0%">
 							<img class='zoc' src='./Figures/BerkhExp/Sec-7.png' style="width: 35%;padding: 0%;margin: 0%">
-
+							<aside class="notes">SWAN uses approximation, need better model for particle, can only do as good as SWAN, scope of new modelling</aside>
 						</section>
 
 
@@ -1352,12 +1397,12 @@
 
 					<!--  Slide 6 -->
 					<section>
-						<h3> Conclusions</h3>
+						<h3 align='center'>Conclusions</h3>
 						<hr>
 					</section>
 
 					<section>
-						<h3 align='left'>Conclusions</h3>
+						<h3 align='left' style="text-transform: none">Conclusions</h3>
 						<hr>
 
 						<!-- Implementation -->
@@ -1371,6 +1416,7 @@
 									<li>Refraction</li>
 									<li>Bottom friction</li>
 									<li>Depth-induced breaking</li>
+									<li>Iterative approach for breaking</li>
 								</ul>
 							</ul>
 						</section>
@@ -1384,6 +1430,7 @@
 								<hr>
 								<ul style="list-style-type:disc;">
 									<li>At par with SWAN and analytical solution</li>
+									<li>Explainable numerical discrepancies</li>
 									<li>Monochromatic as well as wave spectrum</li>
 									<li>Convergence of iterative scheme</li>
 									<li>Small error in shallower region</li>
@@ -1401,6 +1448,7 @@
 									<li>Comparable with SWAN</li>
 									<li>Depends on the bathymetry</li>
 									<li>Depends on number of particles and time-step used</li>
+									<li>Accuracy-Speed tradeoff</li>
 									<li>Scope of numerical optimization</li>
 								</ul>
 							</ul>
@@ -1424,23 +1472,23 @@
 
 					<!--  Slide 6 -->
 					<section>
-						<h3>Future Scope</h3>
+						<h3 align='center' >Future Scope</h3>
 						<hr>
 					</section>
 
 					<section>
-						<h3 align='left'>Future Scope</h3>
+						<h3 align='left' style="text-transform: none">Future Scope</h3>
 						<hr>
 
 						<!-- Additional processes -->
 						<section>
 							<ul>
-								<li>Implementation of processes</li>
+								<li>Implementation of additional processes</li>
 								<hr>
 								<ul style="list-style-type:disc;">
-									<li>Diffraction</li>
-									<li>Non-linear interactions</li>
-									<li>Bottom friction</li>
+									<li>Diffraction and non-linear interactions</li>
+									<li>Reflection</li>
+									<li>Wave growth by wind</li>
 									<li>White capping e.t.c</li>
 									<li>Different formulation of these processes</li>
 								</ul>
@@ -1481,18 +1529,121 @@
 								<hr>
 								<ul style="list-style-type:disc;">
 									<li>Quantifying estimation error</li>
-									<li>Combining with measurement and modelling errors</li>
+									<li>Combining with measurement and modelling uncertainties</li>
 								</ul>
 							</ul>
 						</section>
 					</section>
-					<section>
-						<h3>Thank You</h3>
+
+					<!-- data-background="#f0f0f0" -->
+					<section >
+						<h3 align="left" style="text-transform: none">Thanks for all the fish 🐬🐬</h3>
 						<hr>
+						<h4 align="left" style="text-transform: none">Questions?</h4>
 					</section>
+
+					<!-- <section data-background="#f0f0f0">
+						<p align="left"><span align="left"
+								style=" height: 200px;  width: 200px;  background-color: #bbb;  border-radius: 50%;  display: inline-block;"></span>
+						</p><h3>Thank you</h3>
+					</section> -->
+
+
 					<!-- ###############################################################################-->
 					<!-- ###############################################################################-->
 					<!-- ########################   End of Presentation    #############################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+
+
+					<section>
+
+
+						
+						<section>
+							<p>Dispersion relation</p><hr>
+							<p>\begin{align}\label{eqn:dispersion}
+								\omega^2 = gk\tanh(kd)
+								\end{align} 
+							\begin{align*}
+							c = \frac{\omega}{k} = \sqrt{\frac{g}{k}\tanh{kd}}, \quad c_g = \frac{\partial\omega}{\partial k} = n.c \quad n =
+							\frac{1}{2}\left( 1 + \frac{2kd}{\sinh{2kd}} \right)
+							\end{align*} </p>
+						</section>
+
+
+						<section>
+							<p>Particle dynamics</p><hr>
+							<p>
+								\begin{align*}
+								C_x = \frac{dx}{dt} &= c_g\cos(\theta) 
+							&& C_y = \frac{dy}{dt} = c_g\sin(\theta) \\
+								C_\theta = \frac{d\theta}{dt} &= -\frac{c_g}{c}\frac{\partial c}{\partial \mathbf{m}} 
+							&& C_\omega = \frac{d\omega}{dt} = 0 \\
+								C_e = \frac{de}{dt} &= \lambda e
+								\end{align*}
+							</p>
+						</section>
+
+						<section>
+							<p>Particle energy</p>
+							<hr>
+							<p>
+								\begin{align}
+								U_i = \int_{\partial R} E(\mathbf{x},t_i).
+								\end{align}
+
+								\begin{align}\label{eqn:E_per_particle}
+								e_i^j = u_i^j\textbf{C}_i^j.\textbf{n}_i^j\Delta t = \frac{U_i}{N_i}\textbf{C}_i^j.\textbf{n}_i^j\Delta t.
+								\end{align}
+
+								\begin{align*}
+								\int_{\partial R} E(\textbf{x},t_i)\textbf{C}(\textbf{x},t_i).\textbf{n} &=
+								\lim_{\substack{N_i\rightarrow\infty\\ \Delta t \rightarrow 0}} \ \frac{1}{\Delta t}\sum_{j=1}^{N_i} e_i^j.
+								\end{align*}
+							</p>
+						</section>
+
+						<section>
+							<p>Sampling strategy</p><hr>
+							<p>
+								\begin{align*}
+								Y&\sim\varphi(y|x=x_{max}) = Uni(0,y_{max}) (\mbox{Uniform distribution}), \\
+								\Theta&\sim\varphi(\theta|x=x_{max},y) = D(\theta) ( \ i.e. \ \cos^2 \ \mbox{distribution}), \\
+								\Omega&\sim\varphi(\omega|x=x_{max},y) = \mbox{PM / JONSWAP spectrum}.
+								\end{align*}
+							</p>
+						</section>
+
+						<section>
+							<p>Estimation of wave properties</p><hr>
+							<p style="font-size: 25pt">
+								\begin{align*}
+								\omega_{mean} = \frac{1}{E_{\Delta R}}\left[{ \sum_{i:\textbf{x}_i\in \Delta R } e_i\omega_i}\right], \quad
+								~~
+								~~
+								\omega_{rms}^2 = \frac{1}{E_{\Delta R}}\left[{ \sum_{i:\textbf{x}_i\in \Delta R } e_i\omega_i}^2\right]
+								\end{align*}
+								\begin{align*}
+								\theta_{mean} = \frac{1}{E_{\Delta R}}\left[{ \sum_{i:\textbf{x}_i\in \Delta R } e_i\theta_i}\right], \quad
+								\theta_{rms}^2 = \frac{1}{E_{\Delta R}}\left[{ \sum_{i:\textbf{x}_i\in \Delta R } e_i\theta_i^2}\right]
+								\end{align*}
+							</p>
+						</section>
+
+
+
+
+
+
+					</section>
+
+
+
+					<!-- ###############################################################################-->
+					<!-- ###############################################################################-->
+					<!-- ########################   End of Slides          #############################-->
 					<!-- ###############################################################################-->
 					<!-- ###############################################################################-->
 					<!-- ###############################################################################-->
